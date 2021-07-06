@@ -2,6 +2,12 @@
 
 Orderbook for Cryptocurrencies written in Go
 
+### Main Features
+
+* Sides maintained in correct order
+* Supports max depth and depth truncation
+* Does not use Floating-point arithmetic
+
 #### Usage
 [Example](https://github.com/matiss/orderbook-example)
 
