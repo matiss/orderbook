@@ -2,6 +2,9 @@
 
 Orderbook for Cryptocurrencies written in Go
 
+#### Usage
+[Example](https://github.com/matiss/orderbook-example)
+
 #### Test:
 ```
 go test -v ./...
