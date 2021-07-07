@@ -40,7 +40,7 @@ func (ob *OrderBook) OrderBookAskConversion(amount decimal.Decimal) (decimal.Dec
 	}
 
 	// Too shallow orderbook to fill order
-	return decimal.Decimal{}, errors.New("Too shallow Ask depth to fill order")
+	return decimal.Decimal{}, errors.New("too shallow Ask depth to fill order")
 }
 
 // OrderBookBidConversion bid conversion
@@ -77,7 +77,7 @@ func (ob *OrderBook) OrderBookBidConversion(amount decimal.Decimal) (decimal.Dec
 	}
 
 	// Too shallow orderbook to fill order
-	return decimal.Decimal{}, errors.New("Too shallow Bid depth to fill order")
+	return decimal.Decimal{}, errors.New("too shallow Bid depth to fill order")
 }
 
 // OrderBooAskReverseConversion ask reverse conversion
@@ -113,7 +113,7 @@ func (ob *OrderBook) OrderBooAskReverseConversion(amount decimal.Decimal) (decim
 		ask = ask.next
 	}
 
-	return decimal.Decimal{}, errors.New("Too shallow Ask depth to fill order")
+	return decimal.Decimal{}, errors.New("too shallow Ask depth to fill order")
 }
 
 // OrderBookBidReverseConversion bid reverse conversion
@@ -149,7 +149,7 @@ func (ob *OrderBook) OrderBookBidReverseConversion(amount decimal.Decimal) (deci
 		bid = bid.next
 	}
 
-	return decimal.Decimal{}, errors.New("Too shallow Bid depth to fill order")
+	return decimal.Decimal{}, errors.New("too shallow Bid depth to fill order")
 }
 
 // GetBuyOrderBookDepthRequirement get orderbook depth fill requirement for buy order
@@ -227,7 +227,7 @@ func (ob *OrderBook) GetMarketPrice() (decimal.Decimal, error) {
 	var price decimal.Decimal
 
 	if ob.Asks == nil || ob.Bids == nil {
-		return price, errors.New("Missing Bids/Asks for order book")
+		return price, errors.New("missing Bids/Asks for order book")
 	}
 
 	// Get first ask

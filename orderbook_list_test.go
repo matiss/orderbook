@@ -34,12 +34,12 @@ func TestUpdateOrAddAsc(t *testing.T) {
 
 	third := second.next
 	if third.Price != 124000 || third.Size != 200 {
-		t.Errorf("Inavlid third node! Expected: %d, got: %d", 124000, third.Price)
+		t.Errorf("Invalid third node! Expected: %d, got: %d", 124000, third.Price)
 	}
 
 	fourth := third.next
 	if fourth.Price != 124005 {
-		t.Errorf("Inavlid fourth node! Expected: %d, got: %d", 124005, fourth.Price)
+		t.Errorf("Invalid fourth node! Expected: %d, got: %d", 124005, fourth.Price)
 	}
 }
 
@@ -73,12 +73,12 @@ func TestUpdateOrAddDesc(t *testing.T) {
 
 	third := second.next
 	if third.Price != 123500 || third.Size != 78012 {
-		t.Errorf("Inavlid third node! Expected: %d, got: %d", 123500, third.Price)
+		t.Errorf("Invalid third node! Expected: %d, got: %d", 123500, third.Price)
 	}
 
 	fourth := third.next
 	if fourth.Price != 123000 {
-		t.Errorf("Inavlid fourth node! Expected: %d, got: %d", 123000, fourth.Price)
+		t.Errorf("Invalid fourth node! Expected: %d, got: %d", 123000, fourth.Price)
 	}
 }
 
