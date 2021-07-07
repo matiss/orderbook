@@ -18,14 +18,13 @@ type OrderBook struct {
 	loaded bool
 }
 
-// NewOrderBook creates new struct instance of *OrderBook
-func NewOrderBook(symbol string, asks, bids *OrderBookList, pruneThreshold int) *OrderBook {
+// New creates new struct instance of *OrderBook
+func New(symbol string, pruneThreshold int) *OrderBook {
 	return &OrderBook{
 		Symbol:         symbol,
-		Asks:           asks,
-		Bids:           bids,
+		Asks:           &OrderBookList{},
+		Bids:           &OrderBookList{},
 		PruneThreshold: pruneThreshold,
-		// mu:             new(sync.Mutex),
 	}
 }
 
@@ -71,7 +70,7 @@ func (ob *OrderBook) ProcessSnapshot(snapshot *DepthSnapshot, eventBuffer []*Dep
 // ProcessEvent processes depth update event
 func (ob *OrderBook) ProcessEvent(event *DepthEvent) error {
 	if !ob.loaded {
-		return fmt.Errorf("No orderbook to update for symbol: %s", ob.Symbol)
+		return fmt.Errorf("no orderbook to update for symbol: %s", ob.Symbol)
 	}
 
 	// Validate and process event
@@ -106,7 +105,7 @@ func (ob *OrderBook) ProcessEvent(event *DepthEvent) error {
 			ob.Bids.Prune(ob.PruneThreshold)
 		}
 	} else {
-		return fmt.Errorf("Invalid event(%s): %d <= %d >= %d", event.Symbol, event.FirstUpdateID, ob.LastUpdateID+1, event.FinalUpdateID)
+		return fmt.Errorf("invalid event(%s): %d <= %d >= %d", event.Symbol, event.FirstUpdateID, ob.LastUpdateID+1, event.FinalUpdateID)
 	}
 
 	return nil
