@@ -15,7 +15,7 @@ type OrderBook struct {
 	Asks *List
 	Bids *List
 
-	loaded bool
+	Loaded bool
 }
 
 // New creates new struct instance of *OrderBook
@@ -64,12 +64,12 @@ func (ob *OrderBook) ProcessSnapshot(snapshot *DepthSnapshot, eventBuffer []*Dep
 	}
 
 	// Mark as loaded
-	ob.loaded = true
+	ob.Loaded = true
 }
 
 // ProcessEvent processes depth update event
 func (ob *OrderBook) ProcessEvent(event *DepthEvent) error {
-	if !ob.loaded {
+	if !ob.Loaded {
 		return fmt.Errorf("no orderbook to update for symbol: %s", ob.Symbol)
 	}
 
@@ -123,5 +123,5 @@ func (ob *OrderBook) Clear() {
 		head: nil,
 	}
 	ob.UpdatedAt = time.Now()
-	ob.loaded = false
+	ob.Loaded = false
 }
