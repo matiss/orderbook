@@ -11,23 +11,23 @@ const (
 	OrderBookSideAsks
 )
 
-// OrderBookListNode struct
-type OrderBookListNode struct {
+// ListNode struct
+type ListNode struct {
 	Price int64
 	Size  int64
 
-	next *OrderBookListNode
+	next *ListNode
 }
 
-// OrderBookList struct
-type OrderBookList struct {
+// List struct
+type List struct {
 	len  int
-	head *OrderBookListNode
+	head *ListNode
 }
 
 // AddFront node
-func (l *OrderBookList) AddFront(price, size int64) {
-	node := &OrderBookListNode{
+func (l *List) AddFront(price, size int64) {
+	node := &ListNode{
 		Price: price,
 		Size:  size,
 	}
@@ -40,13 +40,11 @@ func (l *OrderBookList) AddFront(price, size int64) {
 	}
 
 	l.len++
-
-	return
 }
 
 // AddBack node
-func (l *OrderBookList) AddBack(price, size int64) {
-	node := &OrderBookListNode{
+func (l *List) AddBack(price, size int64) {
+	node := &ListNode{
 		Price: price,
 		Size:  size,
 	}
@@ -62,13 +60,11 @@ func (l *OrderBookList) AddBack(price, size int64) {
 	}
 
 	l.len++
-
-	return
 }
 
 // UpdateOrAddAsc node
-func (l *OrderBookList) UpdateOrAddAsc(price, size int64) {
-	node := &OrderBookListNode{
+func (l *List) UpdateOrAddAsc(price, size int64) {
+	node := &ListNode{
 		Price: price,
 		Size:  size,
 	}
@@ -119,8 +115,8 @@ func (l *OrderBookList) UpdateOrAddAsc(price, size int64) {
 }
 
 // UpdateOrAddDesc node
-func (l *OrderBookList) UpdateOrAddDesc(price, size int64) {
-	node := &OrderBookListNode{
+func (l *List) UpdateOrAddDesc(price, size int64) {
+	node := &ListNode{
 		Price: price,
 		Size:  size,
 	}
@@ -171,7 +167,7 @@ func (l *OrderBookList) UpdateOrAddDesc(price, size int64) {
 }
 
 // Prune nodes
-func (l *OrderBookList) Prune(length int) {
+func (l *List) Prune(length int) {
 	i := 1
 	current := l.head
 	for current != nil {
@@ -187,7 +183,7 @@ func (l *OrderBookList) Prune(length int) {
 }
 
 // Remove node
-func (l *OrderBookList) Remove(price int64) error {
+func (l *List) Remove(price int64) error {
 
 	if l.head == nil {
 		return errors.New("Remove: List is empty")
@@ -196,7 +192,7 @@ func (l *OrderBookList) Remove(price int64) error {
 	removed := false
 
 	// Traverse
-	var prev *OrderBookListNode
+	var prev *ListNode
 	current := l.head
 
 	for current != nil {
@@ -228,7 +224,7 @@ func (l *OrderBookList) Remove(price int64) error {
 }
 
 // RemoveFront node
-func (l *OrderBookList) RemoveFront() error {
+func (l *List) RemoveFront() error {
 	if l.head == nil {
 		return errors.New("RemoveFront: List is empty")
 	}
@@ -240,11 +236,11 @@ func (l *OrderBookList) RemoveFront() error {
 }
 
 // RemoveBack node
-func (l *OrderBookList) RemoveBack() error {
+func (l *List) RemoveBack() error {
 	if l.head == nil {
 		return errors.New("RemoveBack: List is empty")
 	}
-	var prev *OrderBookListNode
+	var prev *ListNode
 	current := l.head
 
 	for current.next != nil {
@@ -264,7 +260,7 @@ func (l *OrderBookList) RemoveBack() error {
 }
 
 // Front node
-func (l *OrderBookList) Front() (*OrderBookListNode, error) {
+func (l *List) Front() (*ListNode, error) {
 	if l.head == nil {
 		return nil, errors.New("Front: List is empty")
 	}
@@ -272,7 +268,7 @@ func (l *OrderBookList) Front() (*OrderBookListNode, error) {
 }
 
 // Last node
-func (l *OrderBookList) Last() (*OrderBookListNode, error) {
+func (l *List) Last() (*ListNode, error) {
 	if l.head == nil {
 		return nil, errors.New("Front: List is empty")
 	}
@@ -291,6 +287,6 @@ func (l *OrderBookList) Last() (*OrderBookListNode, error) {
 }
 
 // Size of list
-func (l *OrderBookList) Size() int {
+func (l *List) Size() int {
 	return l.len
 }

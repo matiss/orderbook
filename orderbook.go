@@ -12,8 +12,8 @@ type OrderBook struct {
 	UpdatedAt      time.Time
 	PruneThreshold int
 
-	Asks *OrderBookList
-	Bids *OrderBookList
+	Asks *List
+	Bids *List
 
 	loaded bool
 }
@@ -22,8 +22,8 @@ type OrderBook struct {
 func New(symbol string, pruneThreshold int) *OrderBook {
 	return &OrderBook{
 		Symbol:         symbol,
-		Asks:           &OrderBookList{},
-		Bids:           &OrderBookList{},
+		Asks:           &List{},
+		Bids:           &List{},
 		PruneThreshold: pruneThreshold,
 	}
 }
@@ -114,11 +114,11 @@ func (ob *OrderBook) ProcessEvent(event *DepthEvent) error {
 // Clear cache
 func (ob *OrderBook) Clear() {
 	ob.LastUpdateID = 0
-	ob.Asks = &OrderBookList{
+	ob.Asks = &List{
 		len:  0,
 		head: nil,
 	}
-	ob.Bids = &OrderBookList{
+	ob.Bids = &List{
 		len:  0,
 		head: nil,
 	}

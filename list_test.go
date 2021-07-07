@@ -6,7 +6,7 @@ import (
 
 // TestFindUpdateOrAddDesc node
 func TestUpdateOrAddAsc(t *testing.T) {
-	list := OrderBookList{
+	list := List{
 		len:  0,
 		head: nil,
 	}
@@ -45,7 +45,7 @@ func TestUpdateOrAddAsc(t *testing.T) {
 
 // TestFindUpdateOrAddDesc node
 func TestUpdateOrAddDesc(t *testing.T) {
-	list := OrderBookList{
+	list := List{
 		len:  0,
 		head: nil,
 	}
@@ -84,18 +84,18 @@ func TestUpdateOrAddDesc(t *testing.T) {
 
 // TestPrune nodes
 func TestPrune(t *testing.T) {
-	list := OrderBookList{
+	list := List{
 		len: 4,
-		head: &OrderBookListNode{
+		head: &ListNode{
 			Price: 100000,
 			Size:  200,
-			next: &OrderBookListNode{
+			next: &ListNode{
 				Price: 100001,
 				Size:  100,
-				next: &OrderBookListNode{
+				next: &ListNode{
 					Price: 100002,
 					Size:  130,
-					next: &OrderBookListNode{
+					next: &ListNode{
 						Price: 100010,
 						Size:  50,
 						next:  nil,
@@ -136,18 +136,18 @@ func TestPrune(t *testing.T) {
 
 // TestRemove node
 func TestRemove(t *testing.T) {
-	list := OrderBookList{
+	list := List{
 		len: 4,
-		head: &OrderBookListNode{
+		head: &ListNode{
 			Price: 100000,
 			Size:  200,
-			next: &OrderBookListNode{
+			next: &ListNode{
 				Price: 100001,
 				Size:  100,
-				next: &OrderBookListNode{
+				next: &ListNode{
 					Price: 100002,
 					Size:  130,
-					next: &OrderBookListNode{
+					next: &ListNode{
 						Price: 100010,
 						Size:  50,
 						next:  nil,
