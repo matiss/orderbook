@@ -74,38 +74,38 @@ func (ob *OrderBook) ProcessEvent(event *DepthEvent) error {
 	}
 
 	// Validate and process event
-	if (event.FirstUpdateID <= ob.LastUpdateID+1) && (event.FinalUpdateID >= ob.LastUpdateID+1) {
-		ob.UpdatedAt = time.Now()
-		ob.LastUpdateID = event.FinalUpdateID
+	if (event.LastUpdateID <= ob.LastUpdateID) {
+		return fmt.Errorf("invalid event(%s): %d <= %d new ID must be greater than previous ID", event.Symbol, event.LastUpdateID, ob.LastUpdateID)
+	}
 
-		// Process Asks
-		for _, askUpdate := range event.Asks {
-			if askUpdate.Delete {
-				ob.Asks.Remove(askUpdate.Price)
-			} else {
-				ob.Asks.UpdateOrAddAsc(askUpdate.Price, askUpdate.Quantity)
-			}
-		}
+	ob.UpdatedAt = time.Now()
+	ob.LastUpdateID = event.FinalUpdateID
 
-		// Process Bids
-		for _, bidUpdate := range event.Bids {
-			if bidUpdate.Delete {
-				ob.Bids.Remove(bidUpdate.Price)
-			} else {
-				ob.Bids.UpdateOrAddDesc(bidUpdate.Price, bidUpdate.Quantity)
-			}
+	// Process Asks
+	for _, askUpdate := range event.Asks {
+		if askUpdate.Delete {
+			ob.Asks.Remove(askUpdate.Price)
+		} else {
+			ob.Asks.UpdateOrAddAsc(askUpdate.Price, askUpdate.Quantity)
 		}
+	}
 
-		// Prune lists
-		if ob.Asks.len > ob.PruneThreshold {
-			ob.Asks.Prune(ob.PruneThreshold)
+	// Process Bids
+	for _, bidUpdate := range event.Bids {
+		if bidUpdate.Delete {
+			ob.Bids.Remove(bidUpdate.Price)
+		} else {
+			ob.Bids.UpdateOrAddDesc(bidUpdate.Price, bidUpdate.Quantity)
 		}
+	}
 
-		if ob.Bids.len > ob.PruneThreshold {
-			ob.Bids.Prune(ob.PruneThreshold)
-		}
-	} else {
-		return fmt.Errorf("invalid event(%s): %d <= %d >= %d", event.Symbol, event.FirstUpdateID, ob.LastUpdateID+1, event.FinalUpdateID)
+	// Prune lists
+	if ob.Asks.len > ob.PruneThreshold {
+		ob.Asks.Prune(ob.PruneThreshold)
+	}
+
+	if ob.Bids.len > ob.PruneThreshold {
+		ob.Bids.Prune(ob.PruneThreshold)
 	}
 
 	return nil
