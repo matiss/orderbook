@@ -74,8 +74,8 @@ func (ob *OrderBook) ProcessEvent(event *DepthEvent) error {
 	}
 
 	// Validate and process event
-	if (event.LastUpdateID <= ob.LastUpdateID) {
-		return fmt.Errorf("invalid event(%s): %d <= %d new ID must be greater than previous ID", event.Symbol, event.LastUpdateID, ob.LastUpdateID)
+	if (event.FinalUpdateID <= ob.LastUpdateID) {
+		return fmt.Errorf("invalid event(%s): %d <= %d new ID must be greater than previous ID", event.Symbol, event.FinalUpdateID, ob.LastUpdateID)
 	}
 
 	ob.UpdatedAt = time.Now()
